@@ -1,0 +1,99 @@
+body{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Corebox{
+     width: 800px;
+     height: 600px;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     background-color: rgb(78, 38, 38);
+     background-image: url(bg.png);
+     border-radius: 30px;
+}
+
+.product{
+
+    width: 680px;
+     height: 400px;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     background-color: rgb(104, 52, 52);
+         
+}
+
+.left{
+    width: 50%;
+    height: 100%;
+    border-radius: 0px 50% 50% 0px;
+    background-color: rgb(228, 99, 52);
+    position: relative;
+}
+
+.shoe{
+   position: absolute;
+   top: 70px;
+   left: -70px;
+}
+
+.right{
+    width: 50%;
+    height: 100%;
+    padding: 30px 20px;
+    box-sizing: border-box;
+    color: #fff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.brand {
+    font-size: 28px;
+    font-weight: bold;
+    color: #00b4d8;
+    margin-bottom: 10px;
+    text-shadow: 1px 1px 2px #000;
+}
+
+.product-name {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.color-options {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.color-strip {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    box-shadow: 0 0 4px rgba(255,255,255,0.5);
+    cursor: pointer;
+}
+
+.lengths, .price, .description {
+    font-size: 15px;
+    margin-bottom: 12px;
+    line-height: 1.4;
+    text-align: justify;
+    text-decoration: snow;
+    font-style: italic;
+}
+
+.price {
+    color: #ffb703;
+    font-weight: bold;
+    font-size: 18px;
+}
