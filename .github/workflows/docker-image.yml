@@ -1,10 +1,8 @@
-name: Docker Build & Push
+name: CI/CD Pipeline
 
 on:
   push:
     branches: [ "master" ]   # run on every commit to master
-  pull_request:
-    branches: [ "master" ]   # optional: build on PRs but don’t push
 
 env:
   REGISTRY: docker.io
@@ -31,7 +29,30 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          push: ${{ github.event_name != 'pull_request' }}
+          push: true
           tags: |
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up kubectl
+        uses: azure/setup-kubectl@v3
+        with:
+          version: 'latest'
+
+      - name: Configure kubeconfig
+        run: |
+          mkdir -p ~/.kube
+          echo "${{ secrets.KUBECONFIG }}" > ~/.kube/config
+
+      - name: Deploy to Kubernetes
+        run: |
+          kubectl set image deployment/shoewebsite shoewebsite=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }} -n ecommerce
+          kubectl rollout status deployment/shoewebsite -n ecommerce
